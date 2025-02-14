@@ -368,7 +368,7 @@ else:
     st.write(f'Dados sobre o município **{municipio_selecionado}**')
     
             # Ajuste para evitar erro no gráfico
-            df_metrica = pd.DataFrame({
+            df_metrica = dadosFRP.DataFrame({
                 "Métrica": ["FRP", "Risco de Fogo"],
                 "Valor": [dados_municipio["FRP"], dados_municipio["RiscoFogo"]]
             })
