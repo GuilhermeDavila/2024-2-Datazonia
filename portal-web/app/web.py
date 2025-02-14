@@ -319,7 +319,7 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Gráfico: Emissão de CO2 ---
-    dadosCO2 = pd.read_csv("/mount/src/2024-2-datazonia/portal-web/data/emissaoCO2.csv")
+    dadosCO2 = load_data("emissaoCO2.csv")
     
     st.markdown("<h2 class='section-title'>Emissão de CO2</h2>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; '>Comparativo entre os índices de emissão de CO2 na Amazônia Legal e no restante do Brasil.</h5>", unsafe_allow_html=True)
@@ -328,7 +328,7 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Gráfico: Foco de Queimadas ---
-    dadosFOCO = pd.read_csv("/mount/src/2024-2-datazonia/portal-web/data/foco_queimadas.csv")
+    dadosFOCO = load_data("foco_queimadas.csv")
     st.markdown("<h2 class='section-title'>Foco de Queimadas</h2>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; '>Comparativo entre os índices de foco de queimadas na Amazônia Legal e no restante do Brasil.</h5>", unsafe_allow_html=True)
     st.plotly_chart(criar_grafico(dadosFOCO, "Ano", ["Amazonia Legal", "Resto do Brasil"], "Foco de Queimadas", tipo="line", cores=["#ff7300", "#f7e45f"]))
