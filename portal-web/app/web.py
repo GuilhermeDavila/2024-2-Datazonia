@@ -7,11 +7,14 @@ from streamlit_folium import st_folium
 import def_funcao
 import base64
 import os
-caminho_arquivo = os.path.join(os.path.dirname(__file__),"..","data/")
+
+# Função para construir o caminho do arquivo
+caminho_arquivo = os.path.join(os.path.dirname(__file__), "..", "data")
+
 # Função para carregar dados (cache para desempenho)
 @st.cache_data
 def load_data(nome):
-    return pd.read_csv(f"caminho_arquivo{nome}")
+    return pd.read_csv(os.path.join(caminho_arquivo, nome))
 
 # Configuração da página
 st.set_page_config(page_title="Portal Datazônia", layout="wide", page_icon="🌍")
