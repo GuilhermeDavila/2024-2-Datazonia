@@ -367,14 +367,14 @@ else:
 
     st.write(f'Dados sobre o município **{municipio_selecionado}**')
     
-            # Ajuste para evitar erro no gráfico
-            df_metrica = dadosFRP.DataFrame({
+    # Ajuste para evitar erro no gráfico
+    df_metrica = dadosFRP.DataFrame({
                 "Métrica": ["FRP", "Risco de Fogo"],
                 "Valor": [dados_municipio["FRP"], dados_municipio["RiscoFogo"]]
-            })
+    })
 
-            # Cria um gráfico de barras com as cores específicas
-            fig_metrica = px.bar(
+    # Cria um gráfico de barras com as cores específicas
+    fig_metrica = px.bar(
                 df_metrica,
                 x="Métrica",
                 y="Valor",
@@ -382,11 +382,11 @@ else:
                 text="Valor",
                 color="Métrica",
                 color_discrete_map={"FRP": "#ba4ce7", "Risco de Fogo": "#fc5c5c"}
-            )
+    )
 
-            # Melhorias no layout do gráfico
-            fig_metrica.update_traces(textposition="outside")
-            fig_metrica.update_layout(
+    # Melhorias no layout do gráfico
+    fig_metrica.update_traces(textposition="outside")
+    fig_metrica.update_layout(
                 plot_bgcolor="white",
                 paper_bgcolor="white",
                 font=dict(color="#023616"),
@@ -400,8 +400,8 @@ else:
                     tickfont=dict(color="#023616")
                 ),
                 legend=dict(font=dict(color="#023616"))
-            )
+    )
 
-            # Exibe o gráfico na interface
-            st.plotly_chart(fig_metrica, use_container_width=True)
+    # Exibe o gráfico na interface
+    st.plotly_chart(fig_metrica, use_container_width=True)
 
