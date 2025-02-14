@@ -344,64 +344,68 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Seção FRP e Risco de Fogo ---
-    # Dados - FRP e Risco Fogo, por município da AL
-    dadosFRP = load_data('dados_filtrados.csv')
-    st.markdown('## Fire Radiative Power e Risco Fogo')
-    st.markdown('## FRP e Risco Fogo')
-    st.markdown("""
-        ### Fire Radiative Power (FRP)
-        * O FRP (Potência Radiativa do Fogo) mede a energia térmica emitida por um incêndio em megawatts (MW).
-        * Ele é estimado a partir de imagens de satélite e indica a intensidade do fogo.
-        * Quanto maior o FRP, mais intenso e energético é o incêndio.
-        
-        ### Risco de Fogo
-        * O Risco de Fogo é um índice que estima a probabilidade de ocorrência de incêndios com base em fatores ambientais.
-        * Considera variáveis como temperatura, umidade, precipitação e quantidade de dias sem chuva.
-        * Um valor alto indica condições favoráveis para a propagação do fogo.    
-    """, unsafe_allow_html=True)
-    municipios = dadosFRP["Municipio"].unique()
-    municipio_selecionado = st.selectbox("Selecione um município:", sorted(municipios))
-    ### municipio_selecionado = st.selectbox(" ## Selecione um município:", sorted(municipios))
+    # Carregar dados do CSV
+dadosFRP = load_data('dados_filtrados.csv')
 
-    dadosFRP_filtrados = dadosFRP[dadosFRP["Municipio"] == municipio_selecionado]
-
-    st.write(f'Dados sobre o município **{municipio_selecionado}**')
+# Cabeçalhos de informações
+st.markdown('## Fire Radiative Power e Risco Fogo')
+st.markdown('## FRP e Risco Fogo')
+st.markdown("""
+    ### Fire Radiative Power (FRP)
+    * O FRP (Potência Radiativa do Fogo) mede a energia térmica emitida por um incêndio em megawatts (MW).
+    * Ele é estimado a partir de imagens de satélite e indica a intensidade do fogo.
+    * Quanto maior o FRP, mais intenso e energético é o incêndio.
     
-    # # Ajuste para evitar erro no gráfico
-    # df_metrica = dadosFRP.DataFrame({
-    #             "Métrica": ["FRP", "Risco de Fogo"],
-    #             "Valor": [dados_municipio["FRP"], dados_municipio["RiscoFogo"]]
-    # })
+    ### Risco de Fogo
+    * O Risco de Fogo é um índice que estima a probabilidade de ocorrência de incêndios com base em fatores ambientais.
+    * Considera variáveis como temperatura, umidade, precipitação e quantidade de dias sem chuva.
+    * Um valor alto indica condições favoráveis para a propagação do fogo.    
+""", unsafe_allow_html=True)
 
-    # Cria um gráfico de barras com as cores específicas
-    fig_metrica = px.bar(
-                df_metrica,
-                x="Métrica",
-                y="Valor",
-                title="FRP e Risco de Fogo",
-                text="Valor",
-                color="Métrica",
-                color_discrete_map={"FRP": "#ba4ce7", "Risco de Fogo": "#fc5c5c"}
-    )
+# Seleção de município
+municipios = dadosFRP["Municipio"].unique()
+municipio_selecionado = st.selectbox("Selecione um município:", sorted(municipios))
 
-    # Melhorias no layout do gráfico
-    fig_metrica.update_traces(textposition="outside")
-    fig_metrica.update_layout(
-                plot_bgcolor="white",
-                paper_bgcolor="white",
-                font=dict(color="#023616"),
-                title=dict(font=dict(color="#023616")),
-                xaxis=dict(
-                    title=dict(text="Métrica", font=dict(color="#023616")),
-                    tickfont=dict(color="#023616")
-                ),
-                yaxis=dict(
-                    title=dict(text="Valor", font=dict(color="#023616")),
-                    tickfont=dict(color="#023616")
-                ),
-                legend=dict(font=dict(color="#023616"))
-    )
+# Filtrando dados do município selecionado
+dadosFRP_filtrados = dadosFRP[dadosFRP["Municipio"] == municipio_selecionado]
 
-    # Exibe o gráfico na interface
-    st.plotly_chart(fig_metrica, use_container_width=True)
+# Exibindo informações do município
+st.write(f'Dados sobre o município **{municipio_selecionado}**')
 
+# Criando um DataFrame para o gráfico com as métricas de FRP e Risco de Fogo
+df_metrica = pd.DataFrame({
+    "Métrica": ["FRP", "Risco de Fogo"],
+    "Valor": [dadosFRP_filtrados["FRP"].iloc[0], dadosFRP_filtrados["RiscoFogo"].iloc[0]]
+})
+
+# Criação do gráfico de barras com Plotly
+fig_metrica = px.bar(
+    df_metrica,
+    x="Métrica",
+    y="Valor",
+    title="FRP e Risco de Fogo",
+    text="Valor",
+    color="Métrica",
+    color_discrete_map={"FRP": "#ba4ce7", "Risco de Fogo": "#fc5c5c"}
+)
+
+# Melhorias no layout do gráfico
+fig_metrica.update_traces(textposition="outside")
+fig_metrica.update_layout(
+    plot_bgcolor="white",
+    paper_bgcolor="white",
+    font=dict(color="#023616"),
+    title=dict(font=dict(color="#023616")),
+    xaxis=dict(
+        title=dict(text="Métrica", font=dict(color="#023616")),
+        tickfont=dict(color="#023616")
+    ),
+    yaxis=dict(
+        title=dict(text="Valor", font=dict(color="#023616")),
+        tickfont=dict(color="#023616")
+    ),
+    legend=dict(font=dict(color="#023616"))
+)
+
+# Exibindo o gráfico na interface Streamlit
+st.plotly_chart(fig_metrica, use_container_width=True)
