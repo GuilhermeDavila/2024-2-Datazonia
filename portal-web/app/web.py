@@ -315,7 +315,7 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Gráfico: Emissão de CO2 ---
-    dadosCO2 = load_data("emissaoCO2.csv")
+    dadosCO2 = load_data("./data/emissaoCO2.csv")
     st.markdown("<h2 class='section-title'>Emissão de CO2</h2>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; '>Comparativo entre os índices de emissão de CO2 na Amazônia Legal e no restante do Brasil.</h5>", unsafe_allow_html=True)
     st.plotly_chart(criar_grafico(dadosCO2, "Ano", ["Amazonia Legal", "Resto do Brasil"], "Emissão de CO2", cores=["#0009de", "#87e7f7"]))
