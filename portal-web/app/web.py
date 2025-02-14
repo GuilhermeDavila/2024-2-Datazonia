@@ -344,33 +344,29 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Seção FRP e Risco de Fogo ---
-    st.markdown("<h2 class='section-title'>FRP e Risco de Fogo</h2>", unsafe_allow_html=True)
-    st.markdown(
-        """
-        <p style='text-align: center; '>
-            <strong>Fire Radiative Power (FRP):</strong> Mede a energia térmica emitida por um incêndio em megawatts (MW).<br>
-            <strong>Risco de Fogo:</strong> Índice que estima a probabilidade de incêndios com base em variáveis ambientais.
-        </p>
-        """, unsafe_allow_html=True
-    )
-
-    # Obtém a lista de municípios
-    municipios = def_funcao.get_municipios()
-    if municipios:
-        municipio_selecionado = st.selectbox("Selecione um município:", sorted(municipios))
+    # Dados - FRP e Risco Fogo, por município da AL
+    dadosFRP = load_data('dados_filtrados.csv')
+    st.markdown('## Fire Radiative Power e Risco Fogo')
+    st.markdown('## FRP e Risco Fogo')
+    st.markdown("""
+        ### Fire Radiative Power (FRP)
+        * O FRP (Potência Radiativa do Fogo) mede a energia térmica emitida por um incêndio em megawatts (MW).
+        * Ele é estimado a partir de imagens de satélite e indica a intensidade do fogo.
+        * Quanto maior o FRP, mais intenso e energético é o incêndio.
         
-        # Obtém os dados do município selecionado
-        dados_municipio = def_funcao.get_risco_fogo(municipio_selecionado)
-        if dados_municipio:
-            st.markdown(f"<h3>Dados sobre {municipio_selecionado}</h3>", unsafe_allow_html=True)
+        ### Risco de Fogo
+        * O Risco de Fogo é um índice que estima a probabilidade de ocorrência de incêndios com base em fatores ambientais.
+        * Considera variáveis como temperatura, umidade, precipitação e quantidade de dias sem chuva.
+        * Um valor alto indica condições favoráveis para a propagação do fogo.    
+    """, unsafe_allow_html=True)
+    municipios = dadosFRP["Municipio"].unique()
+    municipio_selecionado = st.selectbox("Selecione um município:", sorted(municipios))
+    municipio_selecionado = st.selectbox(" ## Selecione um município:", sorted(municipios))
 
-            # Cria colunas para exibir os valores de Risco de Fogo e FRP
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown(f'<p class="metric-container">Risco de Fogo: {dados_municipio["RiscoFogo"]}</p>', unsafe_allow_html=True)
-            with col2:
-                st.markdown(f'<p class="metric-container">FRP: {dados_municipio["FRP"]}</p>', unsafe_allow_html=True)
+    dadosFRP_filtrados = dadosFRP[dadosFRP["Municipio"] == municipio_selecionado]
 
+    st.write(f'Dados sobre o município **{municipio_selecionado}**')
+    
             # Ajuste para evitar erro no gráfico
             df_metrica = pd.DataFrame({
                 "Métrica": ["FRP", "Risco de Fogo"],
