@@ -60,7 +60,7 @@ def get_image_base64(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Caminho correto da imagem 
-logo_path = "pictures/logo_white.png"
+logo_path = "/mount/src/2024-2-datazonia/portal-web/app/pictures/logo_white.png"
 
 # Converter imagem para Base64
 logo_base64 = get_image_base64(logo_path)
