@@ -6,6 +6,7 @@ import requests
 from streamlit_folium import st_folium
 import def_funcao
 import base64
+import os
 
 # Função para carregar dados (cache para desempenho)
 @st.cache_data
