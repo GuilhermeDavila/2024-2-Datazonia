@@ -361,17 +361,17 @@ else:
     """, unsafe_allow_html=True)
     municipios = dadosFRP["Municipio"].unique()
     municipio_selecionado = st.selectbox("Selecione um município:", sorted(municipios))
-    municipio_selecionado = st.selectbox(" ## Selecione um município:", sorted(municipios))
+    ### municipio_selecionado = st.selectbox(" ## Selecione um município:", sorted(municipios))
 
     dadosFRP_filtrados = dadosFRP[dadosFRP["Municipio"] == municipio_selecionado]
 
     st.write(f'Dados sobre o município **{municipio_selecionado}**')
     
-    # Ajuste para evitar erro no gráfico
-    df_metrica = dadosFRP.DataFrame({
-                "Métrica": ["FRP", "Risco de Fogo"],
-                "Valor": [dados_municipio["FRP"], dados_municipio["RiscoFogo"]]
-    })
+    # # Ajuste para evitar erro no gráfico
+    # df_metrica = dadosFRP.DataFrame({
+    #             "Métrica": ["FRP", "Risco de Fogo"],
+    #             "Valor": [dados_municipio["FRP"], dados_municipio["RiscoFogo"]]
+    # })
 
     # Cria um gráfico de barras com as cores específicas
     fig_metrica = px.bar(
