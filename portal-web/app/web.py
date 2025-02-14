@@ -315,7 +315,7 @@ else:
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # --- Gráfico: Emissão de CO2 ---
-    dadosCO2 = load_data("/mount/src/2024-2-datazonia/portal-web/data/emissaoCO2.csv")
+    dadosCO2 = pd.read_csv("/mount/src/2024-2-datazonia/portal-web/data/emissaoCO2.csv")
     
     st.markdown("<h2 class='section-title'>Emissão de CO2</h2>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; '>Comparativo entre os índices de emissão de CO2 na Amazônia Legal e no restante do Brasil.</h5>", unsafe_allow_html=True)
